@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'operation',
     'xadmin',
     'crispy_forms',
+    'captcha',
 ]
 AUTH_USER_MODEL = "users.UserProfile"
 
@@ -135,4 +136,32 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),       # 使用元组形式需要加 ,   使用列表形式不需要
 )
+
+
+# 发送邮件参数需要提前配置
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.sina.cn'     # 服务器
+EMAIL_PORT = 25                 # 一般情况下都为25 , 465, 587
+EMAIL_HOST_USER = "18251569431@sina.cn"     # 设置发件账号信息
+EMAIL_HOST_PASSWORD = "cca864cca0ac1ef9"          # 发件邮箱STMP授权密码
+EMAIL_USE_TLS = True          # 使用False报错
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER    # 发件人
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
