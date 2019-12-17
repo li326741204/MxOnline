@@ -31,6 +31,8 @@ class ActiveUserView(View):
                 curr_reg_user = UserProfile.objects.get(email=curr_reg_email)
                 curr_reg_user.is_active = True
                 curr_reg_user.save()
+        else:
+            return render(request, "active_fail.html")
         return render(request, 'login.html')
 
 
@@ -43,6 +45,8 @@ class RegisterView(View):
         register_form = RegisterForm(request.POST)
         if register_form.is_valid():
             user_name = request.POST.get('email', '')
+            if UserProfile.objects.filter(email=user_name):
+                return render(request, 'register.html', {'msg': '邮箱已存在', 'register_form': register_form})
             pass_word = request.POST.get('password', '')
             userprofile = UserProfile()
             userprofile.username = user_name
@@ -77,3 +81,8 @@ class LoginView(View):
                 return render(request, 'login.html', {"msg": "用户名或密码错误"})
         else:
             return render(request, 'login.html', {"login_form": login_form})
+
+
+class ForgetPwdView(View):
+    def get(self, request):
+        return render(request, 'fowgetpwd.html', {})
