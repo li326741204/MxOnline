@@ -32,3 +32,10 @@ def send_register_email(email, send_type="register"):
         send_status = send_mail(email_title, email_body, DEFAULT_FROM_EMAIL, [email])
         if send_status:
             pass
+    elif send_type == "forget":
+        email_title = "liliang学习网密码重置链接"
+        email_body = "点击链接重置账号: http://127.0.0.1:8000/reset/{0}".format(code)
+
+        send_status = send_mail(email_title, email_body, DEFAULT_FROM_EMAIL, [email])
+        if send_status:
+            pass
