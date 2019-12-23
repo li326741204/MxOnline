@@ -20,6 +20,8 @@ from django.views.generic import TemplateView
 import xadmin
 from users.views import LoginView, RegisterView, ActiveUserView, ForgetPwdView, ResetUserView, ModifyPwdView
 from organization.views import OrgView
+from django.views.static import serve
+from MxOnline.settings import MEDIA_ROOT
 
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
@@ -35,5 +37,7 @@ urlpatterns = [
 
     # 课程机构首页
     url(r'^org_list/$', OrgView.as_view(), name="org_list"),
+    # 配置上传图片的访问处理函数1，settings.TEMPLATES  2，HTML + {{ MEDIA_URL }}  3，urls.py + serve
+    url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
 
 ]

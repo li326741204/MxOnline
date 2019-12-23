@@ -56,20 +56,20 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/templates" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="reference.settings.ide.settings.web.browsers" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\PYproject\MxOnline" />
+      <recent name="D:\PYproject\MxOnline\extra_apps" />
+      <recent name="D:\PYproject\MxOnline\apps" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\PYproject\MxOnline\templates" />
       <recent name="D:\PYproject\MxOnline\static" />
       <recent name="D:\PYproject\MxOnline\apps\operation" />
       <recent name="D:\PYproject\MxOnline\apps\organization" />
       <recent name="D:\PYproject\MxOnline\apps\courses" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\PYproject\MxOnline\extra_apps" />
-      <recent name="D:\PYproject\MxOnline\apps" />
-      <recent name="D:\PYproject\MxOnline" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -145,17 +145,7 @@
     <option name="allServicesViewState">
       <serviceView>
         <treeState>
-          <expand>
-            <path>
-              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@bc579605" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-            </path>
-            <path>
-              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@bc579605" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@192baae6" type="9fbbdea:ServiceModel$ServiceNode" />
-            </path>
-          </expand>
+          <expand />
           <select />
         </treeState>
       </serviceView>
@@ -189,6 +179,9 @@
       <workItem from="1576545330814" duration="7110000" />
       <workItem from="1576571877861" duration="2317000" />
       <workItem from="1576597082155" duration="1822000" />
+      <workItem from="1576666424966" duration="7527000" />
+      <workItem from="1577066610556" duration="2437000" />
+      <workItem from="1577085060592" duration="6666000" />
     </task>
     <servers />
   </component>
@@ -196,6 +189,6 @@
     <option name="version" value="1" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/MxOnline$manage.coverage" NAME="manage Coverage Results" MODIFIED="1576598781727" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MxOnline$manage.coverage" NAME="manage Coverage Results" MODIFIED="1577086479090" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
