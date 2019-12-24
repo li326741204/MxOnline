@@ -77,7 +77,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django.core.context_processors.media',  # 配置静态图片读取路径MEDIA_URL参数生效
+                'django.template.context_processors.media',  # 配置静态图片读取路径MEDIA_URL参数生效
             ],
         },
     },

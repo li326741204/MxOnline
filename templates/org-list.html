@@ -22,7 +22,7 @@
                     <ul>
                         <li>
 
-                        {# 筛选功能 #}
+                            {# 筛选功能 #}
                             <h2>机构类别</h2>
                             <div class="cont">
                                 <a href="?city={{ city_id }}"><span
@@ -57,7 +57,7 @@
                     </ul>
                 </div>
 
-            {# 机构筛选统计 #}
+                {# 机构筛选统计 #}
                 <div class="all">共<span class="key">{{ org_nums }}</span>家</div>
                 <div class="butler_list company list">
                     <div class="layout">
@@ -65,14 +65,17 @@
 
                             {# 学习人数，课程数的排序功能 #}
                             <ul class="tab_header">
-                                <li class="{% if sort == '' %}active{% endif %}"><a href="?city={{ city_id }}&ct={{ catgory }}">全部</a></li>
-                                <li class="{% if sort == 'students' %}active{% endif %}"><a href="?sort=students&city={{ city_id }}&ct={{ catgory }}">学习人数 &#8595;</a></li>
-                                <li class="{% if sort == 'courses' %}active{% endif %}"><a href="?sort=courses&city={{ city_id }}&ct={{ catgory }}">课程数 &#8595;</a></li>
+                                <li class="{% if sort == '' %}active{% endif %}"><a
+                                        href="?city={{ city_id }}&ct={{ catgory }}">全部</a></li>
+                                <li class="{% if sort == 'students' %}active{% endif %}"><a
+                                        href="?sort=students&city={{ city_id }}&ct={{ catgory }}">学习人数 &#8595;</a></li>
+                                <li class="{% if sort == 'courses' %}active{% endif %}"><a
+                                        href="?sort=courses&city={{ city_id }}&ct={{ catgory }}">课程数 &#8595;</a></li>
                             </ul>
                         </div>
 
 
-                    {% 课程机构列表 %}
+                        {# 课程机构列表 #}
                         {% for orgs in all_orgs.object_list %}
                             <dl class="des difdes">
                                 <dt>
@@ -114,7 +117,7 @@
 
                     </div>
 
-                {# 分页功能 #}
+                    {# 分页功能 #}
                     <div class="pageturn">
                         <ul class="pagelist">
 
@@ -142,7 +145,7 @@
             </div>
 
 
-        {# Ajax 快速加入学习组件 #}
+            {# Ajax 快速加入学习组件 #}
             <div class="right companyright">
                 <div class="head">我要学习</div>
                 <form class="rightform" id="jsStayForm">
@@ -159,13 +162,13 @@
                         <input type="text" name="course_name" id="companyAddress" placeholder="课程名" maxlength="50"/>
                     </div>
                     <p class="error company-tips" id="jsCompanyTips"></p>
-                    <input class="btn" type="text" id="jsStayBtn" value="立即咨询 >"/>
-                    <input type='hidden' name='csrfmiddlewaretoken' value='5I2SlleZJOMUX9QbwYLUIAOshdrdpRcy'/>
+                    <input class="btn" type="submit" id="jsStayBtn" value="立即咨询 >"/>
+                    {% csrf_token %}
                 </form>
             </div>
 
 
-        {# 机构排名功能 #}
+            {# 机构排名功能 #}
             <div class="right companyrank layout">
                 <div class="head">授课机构排名</div>
 
@@ -184,3 +187,34 @@
         </div>
     </section>
 {% endblock %}
+
+
+{% block custom_js %}
+    <script>
+        $('#jsStayBtn').on('click', function () {
+            $.ajax({
+                cache: false,
+                type: "post",
+                url: "{% url 'org:add_ask' %}",
+                data: $('#jsStayForm').serializeJson(),
+                async: true,
+                success: function (data) {
+                    console.log("OK");
+                    alert("OK");
+                    if (data.status == 'success') {
+                        $('#jsStayForm')[0].reset();
+                        alert("提交成功");
+                    } else if (data.status == 'fail') {
+                        $('#jsCompanyTips').html(data.msg);
+                    }
+                },
+            });
+        });
+
+
+    </script>
+
+{% endblock %}
+
+
+
