@@ -3,7 +3,7 @@ __author__ = 'liliang'
 __date__ = '2019-12-24 15:25'
 
 from django.conf.urls import url, include
-from .views import OrgView,AddUserAskView
+from .views import OrgView, AddUserAskView
 
 urlpatterns = [
     # 课程机构首页

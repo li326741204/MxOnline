@@ -4,7 +4,7 @@ from django.views.generic import View
 from .models import CourseOrg, CityDict
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 from .forms import UserAskForm
-from django.http import HttpResponse,JsonResponse
+from django.http import HttpResponse, JsonResponse
 
 
 # Create your views here.
@@ -58,10 +58,10 @@ class OrgView(View):
 
 class AddUserAskView(View):
     def post(self, request):
+        print(request.POST)
         userask_form = UserAskForm(request.POST)
         if userask_form.is_valid():
             user_ask = userask_form.save(commit=True)
-            return JsonResponse("{'status':'success'}", content_type='application/json')
+            return HttpResponse('success')
         else:
-            return JsonResponse("{'status':'fail','msg':'添加出错'}",
-                                content_type='application/json')
+            return HttpResponse('failed')
