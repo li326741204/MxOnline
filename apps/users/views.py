@@ -104,6 +104,7 @@ class LoginView(View):
                 if user.is_active:
 
                     login(request, user)
+                    print(request.user)
                     return render(request, "index.html", {})
                 else:
                     return render(request, 'login.html', {"msg": "用户未激活"})
