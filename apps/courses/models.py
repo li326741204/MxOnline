@@ -3,9 +3,11 @@ from __future__ import unicode_literals
 from datetime import datetime
 
 from django.db import models
+from organization.models import CourseOrg
 
 
 class Course(models.Model):
+    course_org = models.ForeignKey(CourseOrg, verbose_name=u"课程机构", null=True, blank=True)  # 记录存在的情况添加外键需要null和blank
     name = models.CharField(max_length=50, verbose_name=u'课程名')
     desc = models.CharField(max_length=300, verbose_name=u'课程描述')
     detail = models.TextField(verbose_name=u'课程详情')
@@ -34,7 +36,7 @@ class Lesson(models.Model):
         verbose_name = u"章节"
         verbose_name_plural = verbose_name
 
-    def __unicode__(self):     # 解决xadmin中外键选项显示 lesson object
+    def __unicode__(self):  # 解决xadmin中外键选项显示 lesson object
         return self.name
 
 

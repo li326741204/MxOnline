@@ -5,6 +5,7 @@ from .models import CourseOrg, CityDict
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 from .forms import UserAskForm
 from django.http import HttpResponse, JsonResponse
+from courses.models import Course
 
 
 # Create your views here.
@@ -65,3 +66,55 @@ class AddUserAskView(View):
             return HttpResponse('success')
         else:
             return HttpResponse('failed')
+
+
+class OrgHomeView(View):
+    # 机构首页
+    def get(self, request, org_id):
+        current_page = "home"
+        course_org = CourseOrg.objects.get(id=int(org_id))
+        all_courses = course_org.course_set.all()
+        all_teachers = course_org.teacher_set.all()
+        return render(request, 'org-detail-homepage.html', {
+            'all_courses': all_courses,
+            'all_teachers': all_teachers,
+            'course_org': course_org,
+            'current_page': current_page,
+        })
+
+
+class OrgCourseView(View):
+    # 机构课程列表页
+    def get(self, request, org_id):
+        current_page = "course"
+        course_org = CourseOrg.objects.get(id=int(org_id))
+        all_courses = course_org.course_set.all()
+        return render(request, 'org-detail-course.html', {
+            'all_courses': all_courses,
+            'course_org': course_org,
+            'current_page': current_page,
+        })
+
+
+class OrgDescView(View):
+    # 机构介绍页
+    def get(self, request, org_id):
+        current_page = "desc"
+        course_org = CourseOrg.objects.get(id=int(org_id))
+        return render(request, 'org-detail-desc.html', {
+            'course_org': course_org,
+            'current_page': current_page,
+        })
+
+
+class OrgTeacherView(View):
+    # 机构讲师页
+    def get(self, request, org_id):
+        current_page = "teacher"
+        course_org = CourseOrg.objects.get(id=int(org_id))
+        all_teachers = course_org.teacher_set.all()
+        return render(request, 'org-detail-teachers.html', {
+            'course_org': course_org,
+            'all_teachers': all_teachers,
+            'current_page': current_page,
+        })
