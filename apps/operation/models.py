@@ -55,6 +55,7 @@ class UserMessage(models.Model):
         verbose_name_plural = verbose_name
 
 
+# 用户关联的课程表
 class UserCourse(models.Model):
     user = models.ForeignKey(UserProfile, verbose_name=u'用户')
     course = models.ForeignKey(Course, verbose_name=u'课程')
@@ -63,3 +64,7 @@ class UserCourse(models.Model):
     class Meta:
         verbose_name = u'用户课程信息'
         verbose_name_plural = verbose_name
+
+    def __unicode__(self):
+        return self.user.username
+

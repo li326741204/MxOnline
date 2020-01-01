@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'courses',
     'organization',
     'operation',
-    'xadmin',
+    'xadmin',  # xadmin后台管理系统
+    'import_export',  # xadmin后台系统的导入功能
     'crispy_forms',
     'captcha',
     'pure_pagination',
@@ -148,11 +149,9 @@ EMAIL_HOST_PASSWORD = "cca864cca0ac1ef9"  # 发件邮箱STMP授权密码
 EMAIL_USE_TLS = True  # 使用False报错
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER  # 发件人
 
-
 # 文件上传配置
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 
 # 分页显示设置
 PAGINATION_SETTINGS = {
@@ -161,3 +160,6 @@ PAGINATION_SETTINGS = {
 
     'SHOW_FIRST_PAGE_WHEN_INVALID': True,
 }
+
+# xadmin导入功能时使用数据库事务，默认false
+IMPORT_EXPORT_USE_TRANSACTIONS = True

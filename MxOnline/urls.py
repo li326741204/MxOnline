@@ -37,6 +37,9 @@ urlpatterns = [
     # 课程机构URL配置
     url(r'^org/', include('organization.urls', namespace="org")),
 
+    # 课程相关URL配置
+    url(r'^course/', include('courses.urls', namespace="course")),
+
     # 配置上传图片的访问处理函数1，settings.TEMPLATES  2，HTML + {{ MEDIA_URL }}  3，urls.py + serve
     url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
 

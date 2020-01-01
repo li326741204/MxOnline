@@ -34,6 +34,7 @@ class UserCourseAdmin(object):
     list_display = ['user', 'course', 'add_time']
     search_fields = ['user', 'course']
     list_filter = ['user', 'course', 'add_time']
+    #relfield_style = 'fk-ajax'
 
 
 xadmin.site.register(UserAsk, UserAskAdmin)
