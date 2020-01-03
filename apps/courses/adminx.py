@@ -7,9 +7,9 @@ from .models import Course, Lesson, Vedio, CourseResource
 
 
 class CourseAdmin(object):
-    list_display = ['name', 'desc', 'detail', 'degree', 'learn_times', 'students']
-    search_fields = ['name', 'desc', 'detail', 'degree', 'students']
-    list_filter = ['name', 'desc', 'detail', 'degree', 'learn_times', 'students']
+    list_display = ['name', 'degree', 'course_org', 'category']
+    search_fields = ['name', 'degree', 'course_org', 'category']
+    list_filter = ['name', 'degree', 'course_org', 'category']
 
 
 class LessonAdmin(object):

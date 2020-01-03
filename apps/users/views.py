@@ -102,10 +102,10 @@ class LoginView(View):
             user = authenticate(username=user_name, password=pass_word)
             if user is not None:
                 if user.is_active:
-
+                    index_page = 'index'
                     login(request, user)
                     print(request.user)
-                    return render(request, "index.html", {})
+                    return render(request, "index.html", {'index_page':index_page})
                 else:
                     return render(request, 'login.html', {"msg": "用户未激活"})
             else:

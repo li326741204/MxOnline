@@ -12,10 +12,10 @@
             <!--  课程信息  -->
             {% for all_cours in all_courses %}
                 <div class="module1_5 box">
-                    <a href="course-detail.html"><img width="214"
+                    <a href="{% url 'course:course_detail' all_cours.id %}"><img width="214"
                                                       src="{{ MEDIA_URL }}{{ all_cours.image }}"/></a>
                     <div class="des">
-                        <a href="course-detail.html"><h2>{{ all_cours.name }}</h2></a>
+                        <a href="{% url 'course:course_detail' all_cours.id %}"><h2>{{ all_cours.name }}</h2></a>
                         <span class="fl">课时：<i class="key">{{ all_cours.learn_times }}</i></span>
                         <span class="fr">参加人数：{{ all_cours.students }}</span>
                     </div>

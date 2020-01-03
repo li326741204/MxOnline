@@ -18,6 +18,8 @@ class OrgView(View):
         all_orgs = CourseOrg.objects.all()
         all_citys = CityDict.objects.all()
         hot_orgs = all_orgs.order_by("-click_nums")[:3]
+        # 继承base页面选中图标
+        org_page = 'organization'
 
         # 筛选城市
         city_id = request.GET.get('city', "")
@@ -55,6 +57,7 @@ class OrgView(View):
                                                  'catgory': catgory,
                                                  'hot_orgs': hot_orgs,
                                                  'sort': sort,
+                                                 'org_page': org_page,
                                                  })
 
 
@@ -80,7 +83,9 @@ class OrgHomeView(View):
             if UserFavorite.objects.filter(user=request.user, fav_id=course_org.id, fav_type=2):
                 has_fav = True
 
+        # 机构下所有课程
         all_courses = course_org.course_set.all()
+        # 机构下所有教师
         all_teachers = course_org.teacher_set.all()
         return render(request, 'org-detail-homepage.html', {
             'all_courses': all_courses,
