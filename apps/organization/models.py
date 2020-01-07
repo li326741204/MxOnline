@@ -65,3 +65,7 @@ class Teacher(models.Model):
     class Meta:
         verbose_name = u'教师'
         verbose_name_plural = verbose_name
+
+    def __unicode__(self):
+        return self.name
+

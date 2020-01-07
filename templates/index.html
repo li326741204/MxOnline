@@ -15,13 +15,14 @@
 
 </head>
 <body>
+
+
 <section class="headerwrap ">
     <header>
         <div class=" header">
             <div class="top">
                 <div class="wp">
-                    <div class="fl"><p>服务电话：<b>33333333</b></p>
-                    </div>
+                    <div class="fl"><p>服务电话：<b>33333333</b></p></div>
                     {% if request.user.is_authenticated %}
 
                         <!--登录后跳转-->
@@ -49,19 +50,14 @@
                                 </div>
                             </div>
                         </div>
-                        </div>
-                        </div>
+
                     {% else %}
-                        <div class="top">
-                            <div class="wp">
-                                <div class="fl"><p>服务电话：<b>33333333</b></p></div>
-                                <a style="color:white" class="fr registerbtn" href="{% url 'register' %}">注册</a>
-                                <a style="color:white" class="fr loginbtn" href="{% url 'login' %}">登录</a>
-                            </div>
-                        </div>
+                        <a style="color:white" class="fr registerbtn" href="{% url 'register' %}">注册</a>
+                        <a style="color:white" class="fr loginbtn" href="{% url 'login' %}">登录</a>
                     {% endif %}
 
-
+                </div>
+            </div>
             <div class="middle">
                 <div class="wp">
                     <a href="index.html"><img class="fl" src="{% static 'images/logo.jpg' %}"/></a>
@@ -87,16 +83,18 @@
                 <div class="nav">
                     <div class="wp">
                         <ul>
-                            <li class="active"><a href="{% url 'index' %}">首页</a></li>
-                            <li>
+                            <li class="active"><a
+                                    href="{% url 'index' %}">首页</a></li>
+                            <li class="{% ifequal course_page 'course' %}active{% endifequal %}">
                                 <a href="{% url 'course:course_list' %}">
                                     公开课<img class="hot" src="{% static 'images/nav_hot.png' %}">
                                 </a>
                             </li>
-                            <li>
+                            <li class="{% ifequal current_page 'teacher' %}active{% endifequal %}">
                                 <a href="teachers-list.html">授课教师</a>
                             </li>
-                            <li><a href="{% url 'org:org_list' %}">授课机构</a></li>
+                            <li class="{% ifequal org_page 'organization' %}active{% endifequal %}"><a
+                                    href="{% url 'org:org_list' %}">授课机构</a></li>
                         </ul>
                     </div>
                 </div>

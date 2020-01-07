@@ -92,6 +92,7 @@ class RegisterView(View):
 
 class LoginView(View):
     def get(self, request):
+        index_page = 'index'
         return render(request, 'login.html', {})
 
     def post(self, request):
@@ -105,7 +106,7 @@ class LoginView(View):
                     index_page = 'index'
                     login(request, user)
                     print(request.user)
-                    return render(request, "index.html", {'index_page':index_page})
+                    return render(request, "index.html", {'index_page': index_page})
                 else:
                     return render(request, 'login.html', {"msg": "用户未激活"})
             else:
