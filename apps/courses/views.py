@@ -3,7 +3,7 @@ from django.shortcuts import render, HttpResponse
 from django.views.generic.base import View
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 
-from .models import Course, CourseResource
+from .models import Course, CourseResource, Vedio
 from operation.models import UserFavorite, CourseComments, UserCourse
 from organization.models import CourseOrg
 from utils.mixin_utils import LoginRequiredMixin
@@ -19,7 +19,6 @@ class CourseListView(View):
         all_courses = Course.objects.all().order_by("-add_time")  # -号表示降序排列
 
         hot_courses = Course.objects.all().order_by("click_num")[:3]
-
         # 课程排序
         sort = request.GET.get('sort', "")
         if sort:
@@ -45,6 +44,43 @@ class CourseListView(View):
 
     def post(self, request):
         pass
+
+
+class VedioPlayView(View):
+    def get(self, request, vedio_id):
+
+        playvedio = Vedio.objects.get(id=int(vedio_id))
+
+        course = playvedio.lesson.course
+        course.students += 1
+        course.save()
+        # 查询用户是否关联课程,没有关联则添加关联记录
+        user_if_course = UserCourse.objects.filter(user=request.user, course=course)
+        if not user_if_course:
+            user_and_course = UserCourse(user=request.user, course=course)
+            user_and_course.save()
+
+        user_courses = UserCourse.objects.filter(course=course)
+        user_ids = [user_course.user.id for user_course in user_courses]  # [root litianyu]
+        rel_courses = []
+        if request.user.id in user_ids:
+            # 若本课程学习人数大于1，本身除外
+            if len(user_ids) > 1:
+                user_ids.remove(request.user.id)
+            all_user_courses = UserCourse.objects.filter(user_id__in=user_ids)  #
+            # 取出所有课程id
+            course_ids = [user_course.course.id for user_course in all_user_courses]
+            # 取相关所有课程并排序
+            rel_courses = Course.objects.filter(id__in=course_ids).order_by("-click_num")[:5]
+
+        all_resources = CourseResource.objects.filter(course=course)
+        return render(request, 'course-play.html', {
+            'course': course,
+            'all_resources': all_resources,
+            'rel_courses': rel_courses,
+            'playvedio': playvedio,
+
+        })
 
 
 class CourseDetailView(View):

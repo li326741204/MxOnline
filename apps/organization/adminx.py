@@ -13,9 +13,9 @@ class CityDictAdmin(object):
 
 
 class CourseOrgAdmin(object):
-    list_display = ['name', 'desc', 'image', 'address', 'city', 'add_time']
-    search_fields = ['name', 'desc', 'image', 'address', 'city']
-    list_filter = ['name', 'desc', 'image', 'address', 'city', 'add_time']
+    list_display = ['name', 'image', 'address', 'city', 'add_time']
+    search_fields = ['name', 'image', 'address', 'city']
+    list_filter = ['name', 'image', 'address', 'city', 'add_time']
 
 
 class TeacherAdmin(object):

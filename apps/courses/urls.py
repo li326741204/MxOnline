@@ -1,7 +1,8 @@
 # _*_ coding: utf-8 _*_
 __author__ = 'liliang'
 __date__ = '2019-12-24 15:25'
-from .views import CourseListView, CourseDetailView, AddFavView, CourseVideoView, VideoCommentView, AddCommentView
+from .views import CourseListView, VedioPlayView, CourseDetailView, AddFavView, CourseVideoView, VideoCommentView, \
+    AddCommentView
 from django.conf.urls import url
 
 urlpatterns = [
@@ -21,5 +22,7 @@ urlpatterns = [
 
     # 发送评论
     url(r'^add_comment/$', AddCommentView.as_view(), name="add_comment"),
+    # 视频播放
+    url(r'^vedio/(?P<vedio_id>\d+)/$', VedioPlayView.as_view(), name="vedio_play"),
 
 ]

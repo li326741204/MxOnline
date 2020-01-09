@@ -34,7 +34,7 @@ urlpatterns = [
     url(r'^reset/(?P<reset_code>.*)/$', ResetUserView.as_view(), name="userreset"),
     url(r'^modify/$', ModifyPwdView.as_view(), name="modify_pwd"),
 
-    # 课程机构URL配置
+    # 课程机构URL配置,包含教师
     url(r'^org/', include('organization.urls', namespace="org")),
 
     # 课程相关URL配置

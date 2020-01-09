@@ -53,6 +53,7 @@ class CourseOrg(models.Model):
 class Teacher(models.Model):
     org = models.ForeignKey(CourseOrg, verbose_name=u'所属机构')
     name = models.CharField(max_length=50, verbose_name=u'教师名')
+    age = models.CharField(default='', max_length=50, verbose_name=u'年龄')
     work_year = models.IntegerField(default=0, verbose_name=u'工作年限')
     work_company = models.CharField(max_length=50, verbose_name=u'就职公司')
     work_position = models.CharField(max_length=50, verbose_name=u'职位')
@@ -60,7 +61,7 @@ class Teacher(models.Model):
     click_num = models.IntegerField(default=0, verbose_name=u'点击数')
     fav_nums = models.IntegerField(default=0, verbose_name=u'收藏人数')
     add_time = models.DateTimeField(default=datetime.now, verbose_name=u'添加时间')
-    image = models.ImageField(upload_to='teacher/%Y/%m', verbose_name=u'照片',default='')
+    image = models.ImageField(upload_to='teacher/%Y/%m', verbose_name=u'照片', default='')
 
     class Meta:
         verbose_name = u'教师'
@@ -68,4 +69,3 @@ class Teacher(models.Model):
 
     def __unicode__(self):
         return self.name
-

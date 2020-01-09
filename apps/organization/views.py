@@ -1,7 +1,7 @@
 # _*_ encoding:utf-8 _*_
 from django.shortcuts import render
 from django.views.generic import View
-from .models import CourseOrg, CityDict
+from .models import CourseOrg, CityDict, Teacher
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 from .forms import UserAskForm
 from django.http import HttpResponse
@@ -135,7 +135,7 @@ class OrgDescView(View):
 class OrgTeacherView(View):
     # 机构讲师页
     def get(self, request, org_id):
-        current_page = "teacher"
+        current_page = "orgteacher"
         course_org = CourseOrg.objects.get(id=int(org_id))
         all_teachers = course_org.teacher_set.all()
         # 判断用户是否收藏该机构
@@ -174,3 +174,73 @@ class AddFavView(View):
                 return HttpResponse('success2')  # 已收藏
             else:
                 return HttpResponse('failed2')  # 收藏出错
+
+
+class TeacherView(View):
+    def get(self, request):
+        current_page = 'teacher'
+        # 所有教师列表
+        all_teachers = Teacher.objects.all()
+        # 人气排序，参数需传至HTML
+        sort = request.GET.get('sort', "")
+        if sort:
+            if sort == "height":
+                all_teachers = all_teachers.order_by("-fav_nums")
+            # elif sort == "lower":
+            #     all_teachers = all_teachers.order_by("-click_num")
+
+        # 讲师排行榜前3
+        tea_charts = Teacher.objects.all().order_by("-click_num")[:3]
+
+        tea_nums = all_teachers.count()
+        # 对讲师列表进行分页
+        try:
+            page = request.GET.get('page', 1)
+        except PageNotAnInteger:
+            page = 1
+        # 每页显示4个
+        p = Paginator(all_teachers, 4, request=request)
+
+        teachers = p.page(page)
+
+        return render(request, 'teachers-list.html', {
+            'all_teachers': teachers,
+            'sort': sort,
+            'tea_nums': tea_nums,
+            'tea_charts': tea_charts,
+            'current_page': current_page,
+        })
+
+    def post(self, request):
+        pass
+
+
+class TeacherDetailView(View):
+    def get(self, request, tea_id):
+        teacher = Teacher.objects.get(id=int(tea_id))
+        teacher.click_num += 1
+        teacher.save()
+        # 教师所授课程
+        tea_course = Course.objects.filter(teacher=teacher.id)
+
+        # 收藏功能
+        if request.user.is_authenticated():
+            has_teacher_faved = False
+            if UserFavorite.objects.filter(user=request.user, fav_type=3, fav_id=teacher.id):
+                has_teacher_faved = True
+            has_org_faved = False
+            if UserFavorite.objects.filter(user=request.user, fav_type=2, fav_id=teacher.org.id):
+                has_org_faved = True
+
+        # 教师排行榜
+        sort_teacher = Teacher.objects.filter(org=teacher.org.id).order_by("-click_num")[:5]
+        return render(request, "teacher-detail.html", {
+            'teacher': teacher,
+            'tea_course': tea_course,
+            'sort_teacher': sort_teacher,
+            'has_teacher_faved': has_teacher_faved,
+            'has_org_faved': has_org_faved,
+        })
+
+    def post(self, request):
+        pass

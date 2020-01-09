@@ -80,7 +80,7 @@
 
                                         {% for vedio in lesson.get_lesson_vedio %}
                                             <li>
-                                                <a target="_blank" href='{{ vedio.url }}'
+                                                <a target="_blank" href='{% url 'course:vedio_play' vedio.id %}'
                                                    class="J-media-item studyvideo">
                                                     {{ vedio.name }} ( {{ vedio.learn_times }} )
                                                     <i class="study-state"></i>

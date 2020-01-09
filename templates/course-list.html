@@ -23,7 +23,8 @@
                         <ul class="tab_header">
                             <li {% if sort == '' %}class="active"{% endif %}><a href="?sort=">最新 </a></li>
                             <li {% if sort == 'hot' %}class="active"{% endif %}><a href="?sort=hot">最热门</a></li>
-                            <li {% if sort == 'students' %}class="active"{% endif %}><a href="?sort=students">参与人数</a></li>
+                            <li {% if sort == 'students' %}class="active"{% endif %}><a href="?sort=students">参与人数</a>
+                            </li>
                         </ul>
                     </div>
                     <div id="inWindow">
@@ -44,7 +45,8 @@
                                             <span class="fr">学习人数：{{ course.students }}&nbsp;&nbsp;</span>
                                         </div>
                                         <div class="bottom">
-                                            <a href="{% url 'course:course_detail' course.id %}"><span class="fl">来自{{ course.course_org.name }}网</span></a>
+                                            <a href="{% url 'course:course_detail' course.id %}"><span
+                                                    class="fl">来自{{ course.course_org.name }}网</span></a>
                                             <span class="star fr  notlogin
                                         " data-favid="15">
                                         {{ course.fav_nums }}
@@ -52,7 +54,6 @@
                                         </div>
                                     </div>
                                 {% endfor %}
-
                             </div>
 
 
@@ -92,23 +93,21 @@
                     <div class="head">热门课程推荐</div>
                     <div class="group_recommend">
 
-
                         {% for hot_cours in hot_courses %}
-                        <dl>
-                            <dt>
-                                <a target="_blank" href="">
-                                    <img width="240" height="220" class="scrollLoading"
-                                         src="{{ MEDIA_URL }}{{ hot_cours.image }}"/>
-                                </a>
-                            </dt>
-                            <dd>
-                                <a target="_blank" href=""><h2> {{ hot_cours.name}}</h2></a>
-                                <span class="fl">难度：<i class="key">{{ hot_cours.get_degree_display }}</i></span>
-                                <!--  get_XXXX_display 专门用于显示choice字段对应的值 -->
-                            </dd>
-                        </dl>
+                            <dl>
+                                <dt>
+                                    <a target="_blank" href="{% url 'course:course_detail' hot_cours.id %}">
+                                        <img width="240" height="220" class="scrollLoading"
+                                             src="{{ MEDIA_URL }}{{ hot_cours.image }}"/>
+                                    </a>
+                                </dt>
+                                <dd>
+                                    <a target="_blank" href="{% url 'course:course_detail' hot_cours.id %}"><h2> {{ hot_cours.name }}</h2></a>
+                                    <span class="fl">难度：<i class="key">{{ hot_cours.get_degree_display }}</i></span>
+                                    <!--  get_XXXX_display 专门用于显示choice字段对应的值 -->
+                                </dd>
+                            </dl>
                         {% endfor %}
-
 
 
                     </div>
