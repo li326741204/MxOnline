@@ -43,4 +43,7 @@ urlpatterns = [
     # 配置上传图片的访问处理函数1，settings.TEMPLATES  2，HTML + {{ MEDIA_URL }}  3，urls.py + serve
     url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
 
+    # 用户中心路由
+    url(r'^users/', include('users.urls', namespace="users")),
+
 ]

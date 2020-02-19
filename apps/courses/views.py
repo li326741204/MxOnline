@@ -1,6 +1,7 @@
 # _*_ encoding:utf-8 _*_
 from django.shortcuts import render, HttpResponse
 from django.views.generic.base import View
+from django.db.models import Q
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import Course, CourseResource, Vedio
@@ -19,6 +20,14 @@ class CourseListView(View):
         all_courses = Course.objects.all().order_by("-add_time")  # -号表示降序排列
 
         hot_courses = Course.objects.all().order_by("click_num")[:3]
+
+        # 搜索关键词
+        search_keyword = request.GET.get('keywords', "")
+        if search_keyword:
+            all_courses = all_courses.filter(
+                Q(name__icontains=search_keyword) | Q(desc__icontains=search_keyword) | Q(
+                    detail__icontains=search_keyword))
+
         # 课程排序
         sort = request.GET.get('sort', "")
         if sort:

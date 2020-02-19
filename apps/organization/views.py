@@ -1,6 +1,7 @@
 # _*_ encoding:utf-8 _*_
 from django.shortcuts import render
 from django.views.generic import View
+from django.db.models import Q
 from .models import CourseOrg, CityDict, Teacher
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 from .forms import UserAskForm
@@ -20,6 +21,12 @@ class OrgView(View):
         hot_orgs = all_orgs.order_by("-click_nums")[:3]
         # 继承base页面选中图标
         org_page = 'organization'
+
+        # 机构搜索关键词
+        search_keyword = request.GET.get('keywords', "")
+        if search_keyword:
+            all_orgs = all_orgs.filter(
+                Q(name__icontains=search_keyword) | Q(desc__icontains=search_keyword))
 
         # 筛选城市
         city_id = request.GET.get('city', "")
@@ -181,6 +188,15 @@ class TeacherView(View):
         current_page = 'teacher'
         # 所有教师列表
         all_teachers = Teacher.objects.all()
+
+        # 教师搜索关键词，页面点击搜索js操作在deco-common.js.search_click方法中
+        search_keyword = request.GET.get('keywords', "")
+        if search_keyword:
+            all_teachers = all_teachers.filter(
+                Q(name__icontains=search_keyword) | Q(work_company__icontains=search_keyword) |
+                Q(work_position__icontains=search_keyword)
+            )
+
         # 人气排序，参数需传至HTML
         sort = request.GET.get('sort', "")
         if sort:

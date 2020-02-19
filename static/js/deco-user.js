@@ -1,4 +1,4 @@
-//修改个人中心邮箱验证码
+//修改个人中心邮箱发送验证码
 function sendCodeChangeEmail($btn){
     var verify = verifyDialogSubmit(
         [
@@ -10,7 +10,7 @@ function sendCodeChangeEmail($btn){
     }
     $.ajax({
         cache: false,
-        type: "get",
+        type: "GET",
         dataType:'json',
         url:"/users/sendemail_code/",
         data:$('#jsChangeEmailForm').serialize(),
@@ -20,13 +20,12 @@ function sendCodeChangeEmail($btn){
             $btn.attr('disabled',true);
         },
         success: function(data){
-            if(data.email){
-                Dml.fun.showValidateError($('#jsChangeEmail'), data.email);
+            if(data == 'failed'){
+                Dml.fun.showValidateError($('#jsChangeEmail'), "该邮箱已被注册");
             }else if(data.status == 'success'){
                 Dml.fun.showErrorTips($('#jsChangeEmailTips'), "邮箱验证码已发送");
             }else if(data.status == 'failure'){
                  Dml.fun.showValidateError($('#jsChangeEmail'), "邮箱验证码发送失败");
-            }else if(data.status == 'success'){
             }
         },
         complete: function(XMLHttpRequest){
@@ -36,7 +35,7 @@ function sendCodeChangeEmail($btn){
     });
 
 }
-//个人资料邮箱修改
+//修改邮箱过程中，校验邮箱名和验证码并提交
 function changeEmailSubmit($btn){
 var verify = verifyDialogSubmit(
         [
@@ -50,7 +49,7 @@ var verify = verifyDialogSubmit(
         cache: false,
         type: 'post',
         dataType:'json',
-        url:"/users/update_email/ ",
+        url:"/users/checkemail_code/ ",
         data:$('#jsChangeEmailForm').serialize(),
         async: true,
         beforeSend:function(XMLHttpRequest){

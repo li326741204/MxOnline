@@ -23,7 +23,7 @@ urlpatterns = [
 
 
     # 授课教师页
-    url(r'^teacher/$', TeacherView.as_view(), name="teacher_list"),
+    url(r'^teacher/list/$', TeacherView.as_view(), name="teacher_list"),
     # 教师详情页
     url(r'^teacher_detail/(?P<tea_id>\d+)/$', TeacherDetailView.as_view(), name="teacher_detail"),
 

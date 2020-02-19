@@ -33,21 +33,21 @@
                                 <dd>{{ request.user.username }}<img class="down fr"
                                                                     src="{% static 'images/top_down.png' %}"/></dd>
                                 <dt><img width="20" height="20"
-                                         src="{% static 'media/image/2016/12/default_big_14.png' %}"/>
+                                         src="{{ MEDIA_URL }}{{ request.user.image }}"/>
                                 </dt>
                             </dl>
                             <div class="userdetail">
                                 <dl>
                                     <dt><img width="80" height="80"
-                                             src="{% static 'media/image/2016/12/default_big_14.png' %}"/>
+                                             src="{{ MEDIA_URL }}{{ request.user.image }}"/>
                                     </dt>
                                     <dd>
-                                        <h2>{{ request.user.username }}</h2>
+                                        <h2>{{ request.user.nick_name }}</h2>
                                         <p>{{ request.user.username }}</p>
                                     </dd>
                                 </dl>
                                 <div class="btn">
-                                    <a class="personcenter fl" href="usercenter-info.html">进入个人中心</a>
+                                    <a class="personcenter fl" href="{% url 'users:user_info' %}">进入个人中心</a>
                                     <a class="fr" href="/logout/">退出</a>
                                 </div>
                             </div>
@@ -89,6 +89,7 @@
                         <ul>
                             <li class="{% ifequal index_page 'index' %}active{% endifequal %}"><a
                                     href="{% url 'index' %}">首页</a></li>
+                            {# {% if request.path|slice:'7' == 'course' %}class="active"{% endif %} 通过路经前7位来判断按钮激活 #}
                             <li class="{% ifequal course_page 'course' %}active{% endifequal %}">
                                 <a href="{% url 'course:course_list' %}">
                                     公开课<img class="hot" src="{% static 'images/nav_hot.png' %}">
